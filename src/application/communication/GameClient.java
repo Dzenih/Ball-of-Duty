@@ -1,17 +1,24 @@
 package application.communication;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.xml.rpc.ServiceException;
 
 import org.datacontract.schemas._2004._07.Ball_of_Duty_Server_DTO.AccountDTO;
 import org.datacontract.schemas._2004._07.Ball_of_Duty_Server_DTO.GameDTO;
+import org.datacontract.schemas._2004._07.Ball_of_Duty_Server_DTO.PlayerDTO;
 import org.tempuri.BoDServiceLocator;
 import org.tempuri.IBoDService;
 
 import application.account.Account;
 import application.account.Player;
+import application.engine.entities.BoDCharacter;
+import application.engine.game_object.GameObject;
 import application.engine.rendering.ClientMap;
+import application.gui.Leaderboard;
 import application.input.CharacterController;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +39,8 @@ public class GameClient
     public CharacterController characterController;
     public Point2D sceneRelativeLocation;
     IBoDService ibs;
+    private Leaderboard leaderboard;
+    public ConcurrentMap<Integer, GameObject> gameObjects;
 
     /**
      * Creates a game client with the current relative location of the window.
@@ -47,7 +56,9 @@ public class GameClient
     {
 
         this.sceneRelativeLocation = windowRelativeLocation;
+        this.leaderboard = new Leaderboard();
         BoDServiceLocator server1 = new BoDServiceLocator();
+        gameObjects = new ConcurrentHashMap<>();
 
         try
         {
@@ -60,6 +71,24 @@ public class GameClient
             e.printStackTrace();
         }
 
+    }
+    
+    public void getLeaderboard(BorderPane lbBorder){
+//        for (PlayerDTO pdto : serverGame.getPlayers())
+//        {
+//            BoDCharacter character = (BoDCharacter)gameObjects.get(pdto.getCharacterId());
+//            if (character == null)
+//            {
+//                continue;
+//            }
+//            character.setNickname(pdto.getNickname());
+//            leaderboard.addCharacter(character);
+//        }
+        
+        
+        lbBorder.setCenter(leaderboard);
+        
+        
     }
 
     public void joinAsGuest(BorderPane gameBox, String nickname)

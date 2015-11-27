@@ -108,6 +108,34 @@ public class GUI extends Application
         theStage.getIcons().add(new Image("images/ball_red.png"));
         VBox mainButtonBox = new VBox();
         Button joinBtn = new Button("Join game");
+        
+        Button viewLB = new Button("Leaderboard");
+        viewLB.setPrefSize(150, 50);
+        viewLB.setId("viewLB");
+        viewLB.setStyle("-fx-font: 20 arial; -fx-base: #ff0717;");
+        
+        BorderPane lbBorder = new BorderPane();
+        VBox lbBox = new VBox();
+        Scene lbScene = new Scene(lbBorder);
+        
+        Button lbBack = new Button("Start menu");
+        lbBox.getChildren().add(lbBack);
+        lbBorder.setLeft(lbBox);
+        lbBack.setStyle("-fx-font: 20 arial; -fx-base: #ff0717;");
+        
+        viewLB.setOnAction(ActionEvent ->
+        {
+            theStage.setScene(lbScene);
+            
+            
+            lbBack.setOnAction(ActionEvent1 ->
+            {
+                theStage.setScene(startMenu);
+                startMenuRoot.setLeft(mainButtonBox);
+                BorderPane.setMargin(mainButtonBox, new Insets(350, 0, 0, 150));
+            });
+        });
+        
 
         joinBtn.setPrefSize(150, 50);
         tfNickname.setPrefSize(150, 20);
@@ -142,6 +170,7 @@ public class GUI extends Application
         mainButtonBox.getChildren().add(joinBtn);
         mainButtonBox.getChildren().add(loginStart);
         mainButtonBox.getChildren().add(createStart);
+        mainButtonBox.getChildren().add(viewLB);
         startMenuRoot.setLeft(mainButtonBox);
 
         createStart.setOnAction(ActionEvent ->

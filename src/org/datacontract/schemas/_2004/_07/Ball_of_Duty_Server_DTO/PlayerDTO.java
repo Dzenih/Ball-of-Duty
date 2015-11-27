@@ -10,6 +10,10 @@ package org.datacontract.schemas._2004._07.Ball_of_Duty_Server_DTO;
 public class PlayerDTO  implements java.io.Serializable {
     private int characterId;
 
+    private int gold;
+
+    private double highScore;
+
     private int id;
 
     private java.lang.String nickname;
@@ -19,9 +23,13 @@ public class PlayerDTO  implements java.io.Serializable {
 
     public PlayerDTO(
            int characterId,
+           int gold,
+           double highScore,
            int id,
            java.lang.String nickname) {
            this.characterId = characterId;
+           this.gold = gold;
+           this.highScore = highScore;
            this.id = id;
            this.nickname = nickname;
     }
@@ -44,6 +52,46 @@ public class PlayerDTO  implements java.io.Serializable {
      */
     public void setCharacterId(int characterId) {
         this.characterId = characterId;
+    }
+
+
+    /**
+     * Gets the gold value for this PlayerDTO.
+     * 
+     * @return gold
+     */
+    public int getGold() {
+        return gold;
+    }
+
+
+    /**
+     * Sets the gold value for this PlayerDTO.
+     * 
+     * @param gold
+     */
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+
+    /**
+     * Gets the highScore value for this PlayerDTO.
+     * 
+     * @return highScore
+     */
+    public double getHighScore() {
+        return highScore;
+    }
+
+
+    /**
+     * Sets the highScore value for this PlayerDTO.
+     * 
+     * @param highScore
+     */
+    public void setHighScore(double highScore) {
+        this.highScore = highScore;
     }
 
 
@@ -99,6 +147,8 @@ public class PlayerDTO  implements java.io.Serializable {
         boolean _equals;
         _equals = true && 
             this.characterId == other.getCharacterId() &&
+            this.gold == other.getGold() &&
+            this.highScore == other.getHighScore() &&
             this.id == other.getId() &&
             ((this.nickname==null && other.getNickname()==null) || 
              (this.nickname!=null &&
@@ -115,6 +165,8 @@ public class PlayerDTO  implements java.io.Serializable {
         __hashCodeCalc = true;
         int _hashCode = 1;
         _hashCode += getCharacterId();
+        _hashCode += getGold();
+        _hashCode += new Double(getHighScore()).hashCode();
         _hashCode += getId();
         if (getNickname() != null) {
             _hashCode += getNickname().hashCode();
@@ -133,6 +185,18 @@ public class PlayerDTO  implements java.io.Serializable {
         elemField.setFieldName("characterId");
         elemField.setXmlName(new javax.xml.namespace.QName("http://schemas.datacontract.org/2004/07/Ball_of_Duty_Server.DTO", "CharacterId"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("gold");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://schemas.datacontract.org/2004/07/Ball_of_Duty_Server.DTO", "Gold"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("highScore");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://schemas.datacontract.org/2004/07/Ball_of_Duty_Server.DTO", "HighScore"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();

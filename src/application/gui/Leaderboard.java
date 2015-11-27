@@ -13,13 +13,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
-public class Leaderboard extends ListView<BoDCharacter>
+public class Leaderboard extends ListView<Leaderboard.Entry>
 {
-    ObservableList<BoDCharacter> characters;
-    Set<BoDCharacter> addedCharacters;
+    ObservableList<Entry> characters;
+    Set<Entry> addedCharacters;
 
-    Queue<BoDCharacter> removeQueue;
-    Queue<BoDCharacter> addQueue;
+    Queue<Entry> removeQueue;
+    Queue<Entry> addQueue;
+
+    public class Entry
+    {
+        public String nickName;
+        public double score;
+
+        public Entry(String name, double score)
+        {
+            this.nickName = name;
+            this.score = score;
+        }
+    }
 
     public Leaderboard()
     {
@@ -30,32 +42,29 @@ public class Leaderboard extends ListView<BoDCharacter>
         setItems(characters);
     }
 
-    public Leaderboard(List<BoDCharacter> charList)
-    {
-
-        characters = FXCollections.observableArrayList(charList);
-        addedCharacters = new HashSet<>();
-        setItems(characters);
-    }
-
     @Override
     public void refresh()
     {
 
-        while(addQueue.peek()!=null){characters.add(addQueue.poll());
-
-        }while(removeQueue.peek()!=null){characters.remove(removeQueue.poll());
+        while (addQueue.peek() != null)
+        {
+            characters.add(addQueue.poll());
 
         }
-         characters.sort((c1, c2) -> Double.compare(c2.getScore(), c1.getScore()));
+        while (removeQueue.peek() != null)
+        {
+            characters.remove(removeQueue.poll());
+
+        }
+        characters.sort((c1, c2) -> Double.compare(c2.score, c1.score));
         super.refresh();
     }
 
-    public void addCharacter(BoDCharacter character)
+    public void addCharacter(String nickname, double score)
     {
-        if (!addedCharacters.contains(character))
+        if (!addedCharacters.contains(nickname))
         {
-            addQueue.add(character);
+            addQueue.add(nickname, score);
             addedCharacters.add(character);
         }
 
